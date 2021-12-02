@@ -1,29 +1,33 @@
 import React from 'react';
-import {View, Text, TextInput,StyleSheet, FlatList} from 'react-native';
-import ProductCard from './src/ProductCard/ProductCard';
-import Search from './src/Search/Search';
+import {View, StyleSheet, FlatList} from 'react-native';
+import product from './product_list.json';
+import Card from './src/components/card/Card';
+import Header from './src/components/header/Header';
+import Search from './src/components/search/Search';
+
 const App = () => {
   return (
-    <View>   
-        <Text style={styles.header}>
-          PatikaStore
-        </Text>
-        
-        <ProductCard/>
-    </View>
+    <View style={styles.container}>
+      {/* Header */}
+      <Header />
 
+      {/* Products */}
+      <FlatList
+        ListHeaderComponent={<Search />}
+        data={product}
+        numColumns={2}
+        renderItem={({item}) => <Card product={item} />}
+        keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header:{
-    fontSize:30,
-    fontWeight:'bold',
-    color:'#481f7d',
-    padding:5,
-  }
-  
-})
-
+  container: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+});
 
 export default App;
